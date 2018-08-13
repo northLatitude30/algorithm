@@ -2,9 +2,8 @@ import java.util.*;
 
 public class Main {
   public static void main(String[] args) {
-    String a = "姓名fullName不能为空.证件类型不能为空电话号码不能为空";
-    System.out.println(replaceAll(a));
-
+    Integer[] nums = {0, 4, 2, 0, 8};
+    isContinuous(nums);
   }
 
   public ArrayList<Integer> printListFromTailToHead(ListNode head) {
@@ -615,44 +614,16 @@ public class Main {
     return result;
   }
 
-  public static String LeftRotateString(String str, int n) {
-    if (str == null || str.length() < 2 || str.length() < n) {
-      return str;
-    }
-    char[] array = str.toCharArray();
-    reverse(array, 0, n - 1);
-    reverse(array, n, array.length - 1);
-    reverse(array, 0, array.length - 1);
-    return String.valueOf(array);
-  }
-
-  //反转数组
-  public static char[] reverse(char[] array, int start, int end) {
-    char temp = ' ';
-    while (start < end) {
-      temp = array[start];
-      array[start++] = array[end];
-      array[end--] = temp;
-    }
-    return array;
-  }
-
-  public String ReverseSentence(String str) {
-//    if (str == null || str.length() < 2) {
+//  public static String LeftRotateString(String str, int n) {
+//    if (str == null || str.length() < 2 || str.length() < n) {
 //      return str;
 //    }
-//    char[] array = reverse(str.toCharArray(), 0, str.length() - 1);
-//    int begin = 0;
-//    int end = 0;
-//    while (begin < end && end <= array.length) {
-//      if ("" == array[end]) {
-//
-//      }
-//    }
+//    char[] array = str.toCharArray();
+//    reverse(array, 0, n - 1);
+//    reverse(array, n, array.length - 1);
+//    reverse(array, 0, array.length - 1);
+//    return String.valueOf(array);
 //  }
-    return null;
-  }
-
 
   public static class RandomListNode {
     String label;
@@ -820,7 +791,7 @@ public class Main {
     }
   }
 
-  public int getMiddle(Integer[] list, int low, int high) {
+  public static int getMiddle(Integer[] list, int low, int high) {
     int tmp = list[low];    //数组的第一个作为中轴
     while (low < high) {
       while (low < high && list[high] > tmp) {
@@ -836,7 +807,7 @@ public class Main {
     return low;                   //返回中轴的位置
   }
 
-  public void quickSort(Integer[] list, int low, int high) {
+  public static void quickSort(Integer[] list, int low, int high) {
     if (low < high) {
       int middle = getMiddle(list, low, high);  //将list数组进行一分为二
       quickSort(list, low, middle - 1);        //对低字表进行递归排序
@@ -1015,7 +986,6 @@ public class Main {
   }
 
   /**
-   *
    * @param array
    * @return
    */
@@ -1031,9 +1001,7 @@ public class Main {
   }
 
 
-
   /**
-   *
    * 功能描述:
    *
    * @param:
@@ -1071,19 +1039,20 @@ public class Main {
 
   /**
    * 求两个链表的第一个公共节点
+   *
    * @param pHead1
    * @param pHead2
    * @return
    */
   public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
-    if(pHead1 == null || pHead2 == null) {
+    if (pHead1 == null || pHead2 == null) {
       return null;
     }
-    Map<Integer,ListNode> map = new HashMap<>();
+    Map<Integer, ListNode> map = new HashMap<>();
 
     while (pHead1 != null) {
       if (!map.containsKey(pHead1.val)) {
-        map.put(pHead1.val,pHead1);
+        map.put(pHead1.val, pHead1);
       }
       pHead1 = pHead1.next;
     }
@@ -1099,86 +1068,66 @@ public class Main {
 
   /**
    * 统计一个数组在排序数组中出现的次数
+   *
    * @param array
    * @param k
    * @return
    */
-  public static int GetNumberOfK(int [] array , int k) {
+  public static int GetNumberOfK(int[] array, int k) {
     {
       int number = 0;
-      if (array != null && array.length > 0)
-      {
+      if (array != null && array.length > 0) {
         int first = GetFirstK(array, k, 0, array.length - 1);
         int last = GetLastK(array, k, 0, array.length - 1);
 
-        if (first > -1 && last > -1)
-        {
+        if (first > -1 && last > -1) {
           number = last - first + 1;
         }
       }
       return number;
     }
   }
-  public static int GetFirstK(int[] data, int k, int start, int end)
-  {
-    if (start > end)
-    {
+
+  public static int GetFirstK(int[] data, int k, int start, int end) {
+    if (start > end) {
       return -1;
     }
 
     int middIndex = (start + end) / 2;
     int middData = data[middIndex];
 
-    if (middData == k)
-    {
-      if ((middIndex > 0 && data[middIndex - 1] != k) || middIndex == 0)
-      {
+    if (middData == k) {
+      if ((middIndex > 0 && data[middIndex - 1] != k) || middIndex == 0) {
         return middIndex;
-      }
-      else
-      {
+      } else {
         end = middIndex - 1;
       }
-    }
-    else if (middData > k)
-    {
+    } else if (middData > k) {
       end = middIndex - 1;
-    }
-    else
-    {
+    } else {
       start = middIndex + 1;
     }
 
     return GetFirstK(data, k, start, end);
   }
 
-  public static int  GetLastK(int[] data, int k, int start, int end)
-  {
-    if (start > end)
-    {
+  public static int GetLastK(int[] data, int k, int start, int end) {
+    if (start > end) {
       return -1;
     }
 
     int middIndex = (start + end) / 2;
     int middData = data[middIndex];
 
-    if (middData == k)
-    {
-      if ((middIndex < data.length - 1 && data[middIndex + 1] != k) || middIndex == end)
-      {
+    if (middData == k) {
+      if ((middIndex < data.length - 1 && data[middIndex + 1] != k) || middIndex == end) {
         return middIndex;
-      }
-      else
-      {
+      } else {
         start = middIndex + 1;
       }
-    }
-    else if (middData > k)
-    {
+    } else if (middData > k) {
       end = middIndex - 1;
-    }
-    else
-    {
+    } else {
       start = middIndex + 1;
     }
 
@@ -1187,6 +1136,7 @@ public class Main {
 
   /**
    * 求二叉树的深度
+   *
    * @param root
    * @return
    */
@@ -1202,21 +1152,22 @@ public class Main {
 
   /**
    * 找出数组中两个只出现一次数字
+   *
    * @param array
    * @param num1
    * @param num2
    */
-  public static void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+  public static void FindNumsAppearOnce(int[] array, int num1[], int num2[]) {
 
     if (array == null || array.length == 0) {
       num1 = null;
       num2 = null;
     }
 
-    Map<Integer,Integer> map = new HashMap<>();
+    Map<Integer, Integer> map = new HashMap<>();
     for (Integer val : array) {
       if (!map.containsKey(val)) {
-        map.put(val,null);
+        map.put(val, null);
       } else {
         map.remove(val);
       }
@@ -1225,11 +1176,11 @@ public class Main {
     List<Integer> list = new ArrayList<Integer>();
     list.addAll(map.keySet());
 
-    for (int i=0;i<list.size();i++) {
-      if (i==0) {
+    for (int i = 0; i < list.size(); i++) {
+      if (i == 0) {
         num1[0] = list.get(i);
       }
-      if (i==1) {
+      if (i == 1) {
         num2[0] = list.get(i);
       }
     }
@@ -1237,48 +1188,74 @@ public class Main {
 
   }
 
-//  public String ReverseSentence(String str) {
-//    if (str.trim().equals("") || str == null) {
-//      return str;
-//    }
-//    // 第一步：翻转整个句子
-//    String sentenceReverse = reverse(str);
-//    String[] spilt = sentenceReverse.split(" ");
-//    String result = "";
-//    // 第二步：翻转每个单词
-//    for (String i : spilt) {
-//      result = result + reverse(i) + " ";
-//    }
-//    // 删除最后一个空格
-//    result = result.substring(0, result.length() - 1);
-//    return String.valueOf(result);
-//  }
+  public String ReverseSentence(String str) {
+    if (str == null || str.trim().equals("")) {
+      return str;
+    }
+    // 第一步：翻转整个句子
+    String sentenceReverse = reverse(str);
+    String[] spilt = sentenceReverse.split(" ");
+    String result = "";
+    // 第二步：翻转每个单词
+    for (String i : spilt) {
+      result = result + reverse(i) + " ";
+    }
+    // 删除最后一个空格
+    result = result.substring(0, result.length() - 1);
+    return String.valueOf(result);
+  }
 
 
   //将整个字符串进行翻转
-//  private String reverse(String str) {
-//
-//    char[] arr = str.toCharArray();
-//    char temp;
-//    for (int i = 0; i < arr.length / 2; i++) {
-//      temp = arr[i];
-//      arr[i] = arr[arr.length - i - 1];
-//      arr[arr.length - i - 1] = temp;
-//    }
-//    return String.valueOf(arr);
-//  }
 
-private static String replaceAll(String errDesc){
-  if (errDesc.indexOf(".") != -1) {
-   return errDesc.replaceAll("."," ");
-  } else {
-    return errDesc;
+  private String reverse(String str) {
+
+    char[] arr = str.toCharArray();
+    char temp;
+    for (int i = 0; i < arr.length / 2; i++) {
+      temp = arr[i];
+      arr[i] = arr[arr.length - i - 1];
+      arr[arr.length - i - 1] = temp;
+    }
+    return String.valueOf(arr);
   }
-}
+
+  private static String replaceAll(String errDesc) {
+    if (errDesc.indexOf(".") != -1) {
+      return errDesc.replaceAll(".", " ");
+    } else {
+      return errDesc;
+    }
+  }
+
+  //扑克牌顺子问题
+  public static boolean isContinuous(Integer[] numbers) {
+    if (numbers == null || numbers.length == 0) {
+      return false;
+    }
+    quickSort sort = new quickSort();
+    sort.quickSort(numbers);
+    Integer numOfGap = 0;
+    Integer numOfZero = 0;
+
+    for (int i = numbers.length-1; i >= 0; i--) {
+      if (numbers[i] == 0) {
+        numOfZero++;
+        continue;
+      } else {
+        if (i - 1 >= 0 && numbers[i - 1] != 0) {
+          if (numbers[i] == numbers[i - 1]) {
+            return false;
+          } else {
+            numOfGap += numbers[i] - numbers[i - 1] - 1;
+          }
+        }
+      }
 
 
-
-
+    }
+    return numOfGap > numOfZero ? false : true;
+  }
 }
 
 
