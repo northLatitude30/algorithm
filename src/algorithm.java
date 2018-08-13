@@ -1,11 +1,6 @@
 import java.util.*;
 
-public class Main {
-  public static void main(String[] args) {
-    Integer[] nums = {0, 4, 2, 0, 8};
-    isContinuous(nums);
-  }
-
+public class algorithm {
   public ArrayList<Integer> printListFromTailToHead(ListNode head) {
     ArrayList<Integer> list = new ArrayList<>();
     if (head == null) {
@@ -1238,7 +1233,7 @@ public class Main {
     Integer numOfGap = 0;
     Integer numOfZero = 0;
 
-    for (int i = numbers.length-1; i >= 0; i--) {
+    for (int i = numbers.length - 1; i >= 0; i--) {
       if (numbers[i] == 0) {
         numOfZero++;
         continue;
@@ -1255,6 +1250,31 @@ public class Main {
 
     }
     return numOfGap > numOfZero ? false : true;
+  }
+
+  /**
+   * @param n
+   * @param m
+   * @return int
+   */
+  public int LastRemaining_Solution(int n, int m) {
+    if (n < 1 || m < 1) {
+      return -1;
+    }
+    LinkedList<Integer> linkedList = new LinkedList<>();
+    //获取所有编号的集合 使用LinkedList是为了保持其有序性
+    for (int i = 0; i < n; i++) {
+      linkedList.add(i);
+    }
+    //因为是m-1的同学出局  所以初始情况应该是-1的同学出局  因为按照比赛规则开始  循环为m-1的同学开始出局m开始
+    int index = -1;
+    while (linkedList.size() > 1) {
+      //每次算的时候  需要前一个同学出局(注意)
+      index = (index + m) % linkedList.size();
+      linkedList.remove(index);
+      index--;
+    }
+    return linkedList.get(0);
   }
 }
 
