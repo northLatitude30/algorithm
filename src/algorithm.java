@@ -1,6 +1,11 @@
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class algorithm {
+
+  public static void main(String[] args) {
+    StrToInt("425869");
+  }
   public ArrayList<Integer> printListFromTailToHead(ListNode head) {
     ArrayList<Integer> list = new ArrayList<>();
     if (head == null) {
@@ -1275,6 +1280,44 @@ public class algorithm {
       index--;
     }
     return linkedList.get(0);
+  }
+
+  /**
+   * 求累加不用不能使用乘除法、for、while、if、else、switch、case等关键字
+   *
+   * @param n
+   * @return
+   */
+//  public int Sum_Solution(int n) {
+//     int sum = 0;
+//     sum += Sum_Solution(n-1);
+//  }
+
+  //不用加减求两个数的和
+  public static int Add(int num1, int num2) {
+    while (num2 != 0) {
+      int temp = num1 ^ num2;
+      num2 = (num1 & num2) << 1;
+      num1 = temp;
+    }
+    return num1;
+  }
+
+  public static int StrToInt(String str) {
+    int temp = 0;
+    if (str == null || str.isEmpty()) {
+      return 0;
+    }
+    for (int i = 0;i<str.length();i++) {
+      if (str.charAt(i) < '9' || str.charAt(i) > '0') {
+        temp = (temp << 1) + (temp << 3) + (str.charAt(i) & 0xf);
+      }
+    }
+    if (temp < Integer.MAX_VALUE) {
+      return temp;
+    } else {
+      return 0;
+    }
   }
 }
 
